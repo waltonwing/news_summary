@@ -1,0 +1,20 @@
+//json azure policy rule to restrict new resource creation when budget exceeded
+
+{
+  "if": {
+    "allOf": [
+      {
+        "field": "type",
+        "equals": "Microsoft.Resources/subscriptions"
+      },
+      {
+        "field": "Microsoft.Consumption/budgets/amount",
+        "greater": "Microsoft.DevTestLab/labs/costs"
+      }
+    ]
+  },
+  "then": {
+    "effect": "deny"
+  }
+}
+

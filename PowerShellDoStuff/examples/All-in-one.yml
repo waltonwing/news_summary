@@ -1,0 +1,28 @@
+trigger: none
+
+name: Deploy storage ac
+
+parameters:
+  - name: "storageAccountName" # Name of the terraform state storage account. Needs to be globally unique
+    type: string
+    default: "rgtest03579"
+  - name: "resourceGroupName" # Name of the resource group where the state storage accounts gets created. Will be created if not exists
+    type: string
+    default: "satest092t4"
+  - name: "location"
+    type: string
+    default: "eastus"
+
+variables:
+  azureServiceConnection: "sc-personal-tenant-sc002"
+
+pool: "Azure Pipelines"
+
+steps:
+  - task: AzureCLI@2
+    displayName: "Setup Terraform state store"
+    inputs:
+      azureSubscription: $(azureServiceConnection)
+      scriptType: 'pscore'
+      scriptLocation: 'inlineScript'
+      inlineScript: .\scripts\create_state_store.ps1 -resourceGroupName ${{parameters.resourceGroupName}} -location ${{parameters.location}} -storageAccountName ${{parameters.storageAccountName}}

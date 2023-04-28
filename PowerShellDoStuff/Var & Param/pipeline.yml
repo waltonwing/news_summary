@@ -1,0 +1,39 @@
+trigger: none
+
+variables:  #variables cannot be changed in ADO GUI directly
+  authername: waltonchiang  #var can be mapped in a short format like this
+
+parameters: #parameters can be edited everytime the ADO pipeline run
+- name: tenantserial  #param does not have a short mapping like var
+  type: string
+  default: 'asdf' #if default does not match one of the allowed values, none of the radio button will be selected
+  values: #availabl values make this paramater a list of radio botton in ADO
+  - '1234'
+  - 'asdf'
+  - '@#$%'
+- name: adxdeploy
+  type: boolean
+  default: false
+- name: serviceconnection
+  type: string
+  default: 'sc-testbed' # the 'single quotation' is not required for type:string, but easier to read
+
+stages:
+- stage: Deploy_Management_Structure
+  displayName: Deploy Management to Root MG
+  jobs:  
+  - job: Deploy
+    displayName: Deploy
+    pool: 
+      vmImage: 'windows-latest'
+    steps:
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: ${{parameters.serviceconnection}}  #use ${{this format}} to reference an env parameter in a stage
+        scriptType: filePath 
+        ScriptPath: $(Build.SourcesDirectory)\run.ps1
+        azurePowerShellVersion: latestVersion
+        pwsh: true
+      env:  # this env session is required for parameters only, variables can be referenced directly in PS1
+        tenantserial: ${{parameters.tenantserial}}
+        adxdeploy: ${{parameters.adxdeploy}}
