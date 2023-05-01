@@ -1,0 +1,1 @@
+A script to quickly connect to Azure using Service Principal and secret.
