@@ -1,3 +1,5 @@
-# readme
+# Readme
 
-This repo contains learning and examples about Azure pipeline, PowerShell scripting and ARM templates. As well as project archives for future reference.
+## Purpose
+
+Using Azure Cognitive Services, automatically fetch a news artical from a news source, summarize into a few bullet points, translate to Chinese, and push to a personal device.
