@@ -1,6 +1,0 @@
-stages:
-- template: steps-terraform-state-store.yaml
-  parameters:
-    resourceGroupName: "rgtest03579"
-    storageAccountName: "satest092t4"
-    location: "eastus"
