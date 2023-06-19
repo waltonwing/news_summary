@@ -67,7 +67,9 @@ def translate_to_jp(summary):
                             headers=headers, json=body)
     response = request.json()
 
-    print((response[0]['translations'][0]['text']))
+    #write the output to a text file because powershell cannot read the byte string
+    with open('output.txt', 'w', encoding='utf-8') as f:
+        f.write(response[0]['translations'][0]['text'])
 
 
 # Example usage

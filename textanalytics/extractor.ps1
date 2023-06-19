@@ -9,7 +9,7 @@ $translator_key = (Get-AzCognitiveServicesAccountKey -Name $translator_account_n
 $translator_location = (Get-AzCognitiveServicesAccount -Name $translator_account_name -ResourceGroupName $resource_group).Location
 
 # read news.txt as variable
-$context = Get-Content -Path .\textanalytics\news.txt -Raw
+$context = Get-Content -Path .\news.txt -Raw
 
 # run the script
-python .\textanalytics\extractor.py $context $language_endpoint $language_key $translator_location $translator_key
+python .\extractor.py $context $language_endpoint $language_key $translator_location $translator_key
